@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>DetailCustomer</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- Tiêu đề -->
+    <h3 class="text-center mb-4">Chi tiết sản phẩm</h3>
+
+    <!-- Nút quay lại -->
+    <p>
+        <a class="btn btn-primary mb-4" th:href="@{/products}">
+            Quay lại trang sản phẩm
+        </a>
+    </p>
+
+    <!-- Thông tin chi tiết sản phẩm -->
+    <div class="card p-4 shadow-sm">
+        <div class="row mb-3">
+            <label class="col-sm-3 fw-bold">Tên sản phẩm:</label>
+            <div class="col-sm-9">
+                <label th:text="${product.name}"></label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 fw-bold">Mô tả:</label>
+            <div class="col-sm-9">
+                <label th:text="${product.description}"></label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 fw-bold">Giá:</label>
+            <div class="col-sm-9">
+                <label th:text="${product.price}"></label>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 fw-bold">Số lượng:</label>
+            <div class="col-sm-9">
+                <label th:text="${product.quantity}"></label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="/layout :: footer" class="mt-5"></footer>
+</div>
+
+</body>
+</html>

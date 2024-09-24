@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>DeleteCustomer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLklPrNk06rvff5j38tDVCaCL9LM9veH+7BFvD6erhbPbCf6ys6A6Kj1HAZpFm3n" crossorigin="anonymous">
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1050;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h3>Remove Customer</h3>
+    <p>
+        <a class="btn btn-primary" th:href="@{/products}">Quay lại trang sản phẩm</a>
+    </p>
+    <div id="form">
+        <form action="#" th:action="@{/products/delete}" th:object="${product}" method="POST" novalidate="novalidate">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" class="form-control" th:field="*{name}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Email</label>
+                <input type="text" id="description" class="form-control" th:field="*{description}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Address</label>
+                <input type="number" id="price" class="form-control" th:field="*{price}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Address</label>
+                <input type="number" id="quantity" class="form-control" th:field="*{quantity}" readonly/>
+            </div>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Bạn muốn xóa sản phẩm có tên là <span th:text="${product.name}"></span></h4>
+                            <h4 style="color: red">Hành động này không thể hoàn tác!!</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" onclick="showToast()">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer th:replace="/layout :: footer"></footer>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container">
+    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="successToast">
+        <div class="d-flex">
+            <div class="toast-body">
+                Xóa sản phẩm thành công!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+5oLGb+t6MLM9K9a47lg6Fq5I7GJ2" crossorigin="anonymous"></script>
+<script>
+    function showToast() {
+        // Show the toast when the delete button is clicked
+        var toastElement = document.getElementById('successToast');
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+</script>
+</body>
+</html>

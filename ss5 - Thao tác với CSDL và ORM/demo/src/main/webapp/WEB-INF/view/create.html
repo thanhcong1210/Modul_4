@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>CreateCustomer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLklPrNk06rvff5j38tDVCaCL9LM9veH+7BFvD6erhbPbCf6ys6A6Kj1HAZpFm3n" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1050;
+        }
+    </style>
+</head>
+<body>
+<h3 class="text-center">Add Customer</h3>
+<div class="container">
+    <p>
+        <a class="btn btn-primary" th:href="@{/products}">
+            Quay lại trang sản phẩm
+        </a>
+    </p>
+    <div id="form">
+        <form th:action="@{/products/save}" th:object="${product}" method="POST" novalidate="novalidate">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name Product</label>
+                    <input type="text" id="name" class="form-control" th:field="*{name}"/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" id="description" class="form-control" th:field="*{description}"/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Price ($)</label>
+                    <input type="number" id="price" step="any" class="form-control" th:field="*{price}"/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" id="quantity" class="form-control" th:field="*{quantity}"/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer th:replace="/layout :: footer"></footer>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container">
+    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="successToast">
+        <div class="d-flex">
+            <div class="toast-body">
+                Product saved successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        // Show the toast after page load (simulating success message after saving)
+        var toastElement = document.getElementById('successToast');
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    };
+</script>
+
+</body>
+</html>
