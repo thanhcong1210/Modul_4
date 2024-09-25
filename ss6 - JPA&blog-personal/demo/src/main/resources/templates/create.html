@@ -7,21 +7,50 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
         .formAdd {
-            max-width: 50%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #4CAF50; /* Green header */
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
         }
 
         .btn-back {
             margin-bottom: 20px;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 20px;
         }
 
-        * {
-            text-decoration: none !important;
+        .form-label {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 2px solid #4CAF50; /* Green border */
+            border-radius: 10px;
+        }
+
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
         }
 
         .toast-container {
@@ -30,35 +59,41 @@
             right: 20px;
             z-index: 1100;
         }
+
+        .toast-body {
+            background-color: #4CAF50; /* Green success background */
+            color: white;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1 class="mb-4 mt-2 text-center bg-primary text-white py-2">Add Blog</h1>
-    <a th:href="@{/}" class="btn btn-secondary btn-back">Back to Home</a>
+    <h1>Thêm Blog Mới</h1>
 </div>
 
 <div class="container formAdd">
+    <a th:href="@{/}" class="btn btn-back">← Quay Lại</a>
+
     <form th:action="@{/save}" th:object="${blog}" method="post">
         <input type="hidden" th:field="*{id}">
 
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Enter blog title" required>
+        <div class="mb-4">
+            <label for="title" class="form-label">Tiêu Đề</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Nhập tiêu đề blog">
         </div>
 
-        <div class="mb-3">
-            <label for="author" class="form-label">Author</label>
-            <input type="text" class="form-control" id="author" th:field="*{author}" placeholder="Enter author name" required>
+        <div class="mb-4">
+            <label for="author" class="form-label">Tác Giả</label>
+            <input type="text" class="form-control" id="author" th:field="*{author}" placeholder="Tên tác giả">
         </div>
 
-        <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
-            <textarea class="form-control" id="content" rows="4" th:field="*{content}" placeholder="Enter blog content" required></textarea>
+        <div class="mb-4">
+            <label for="content" class="form-label">Nội Dung</label>
+            <textarea class="form-control" id="content" rows="6" th:field="*{content}" placeholder="Nhập nội dung blog"></textarea>
         </div>
 
         <div class="text-center">
-            <button class="btn btn-primary btn-lg w-50" type="submit">Add Blog</button>
+            <button class="btn btn-submit btn-lg w-75" type="submit">Lưu Blog</button>
         </div>
     </form>
 </div>
@@ -66,12 +101,8 @@
 <!-- Toast Notification -->
 <div class="toast-container">
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" th:classappend="${success} ? 'show' : ''">
-        <div class="toast-header">
-            <strong class="me-auto">Success</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
         <div class="toast-body">
-            Blog added successfully!
+            Blog đã được thêm thành công!
         </div>
     </div>
 </div>
