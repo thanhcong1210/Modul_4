@@ -7,21 +7,46 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
+        body {
+            background-color: #f2f2f2;
+        }
+
         .formAdd {
             max-width: 50%;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-back {
-            margin-bottom: 20px;
+        h1 {
+            text-align: center;
+            background-color: #007bff; /* Blue header */
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
         }
 
-        * {
-            text-decoration: none !important;
+        .btn-back {
+            margin-bottom: 20px;
+            background-color: #007bff; /* Blue button */
+            color: #fff;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 2px solid #007bff; /* Blue border for input fields */
+            border-radius: 8px;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue submit button */
+            border-color: #007bff;
+            border-radius: 30px;
         }
 
         .toast-container {
@@ -30,16 +55,26 @@
             right: 20px;
             z-index: 1100;
         }
-    </style>
 
+        .toast-header {
+            background-color: #007bff; /* Blue toast header */
+            color: white;
+        }
+
+        .toast-body {
+            background-color: #007bff; /* Blue success background */
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1 class="mb-4 mt-2 text-center bg-primary text-white py-2">Edit Blog</h1>
-    <a th:href="@{/}" class="btn btn-secondary btn-back">Back to Home</a>
+    <h1 class="mb-4 mt-2 text-center">Chỉnh Sửa</h1>
 </div>
 
 <div class="container formAdd">
+    <a th:href="@{/}" class="btn btn-back">← Quay Lại</a>
+
     <form th:action="@{/update}" th:object="${blog}" method="post">
         <input type="hidden" th:field="*{id}">
 

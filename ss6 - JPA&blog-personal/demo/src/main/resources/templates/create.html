@@ -23,7 +23,7 @@
 
         h1 {
             text-align: center;
-            background-color: #4CAF50; /* Green header */
+            background-color: #007bff; /* Blue header */
             color: #fff;
             padding: 15px;
             border-radius: 10px 10px 0 0;
@@ -31,7 +31,7 @@
 
         .btn-back {
             margin-bottom: 20px;
-            background-color: #ff5722;
+            background-color: #007bff; /* Blue button */
             color: white;
             border-radius: 20px;
         }
@@ -42,12 +42,12 @@
         }
 
         .form-control {
-            border: 2px solid #4CAF50; /* Green border */
+            border: 2px solid #007bff; /* Blue border */
             border-radius: 10px;
         }
 
         .btn-submit {
-            background-color: #4CAF50;
+            background-color: #007bff; /* Blue submit button */
             color: white;
             border-radius: 30px;
             padding: 10px 20px;
@@ -61,14 +61,14 @@
         }
 
         .toast-body {
-            background-color: #4CAF50; /* Green success background */
+            background-color: #007bff; /* Blue success background */
             color: white;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Thêm Blog Mới</h1>
+    <h1>Thêm Mới</h1>
 </div>
 
 <div class="container formAdd">
@@ -79,21 +79,21 @@
 
         <div class="mb-4">
             <label for="title" class="form-label">Tiêu Đề</label>
-            <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Nhập tiêu đề blog">
+            <input type="text" class="form-control" id="title" th:field="*{title}">
         </div>
 
         <div class="mb-4">
             <label for="author" class="form-label">Tác Giả</label>
-            <input type="text" class="form-control" id="author" th:field="*{author}" placeholder="Tên tác giả">
+            <input type="text" class="form-control" id="author" th:field="*{author}">
         </div>
 
         <div class="mb-4">
             <label for="content" class="form-label">Nội Dung</label>
-            <textarea class="form-control" id="content" rows="6" th:field="*{content}" placeholder="Nhập nội dung blog"></textarea>
+            <textarea class="form-control" id="content" rows="6" th:field="*{content}"></textarea>
         </div>
 
         <div class="text-center">
-            <button class="btn btn-submit btn-lg w-75" type="submit">Lưu Blog</button>
+            <button class="btn btn-submit btn-lg w-75" type="submit">Lưu</button>
         </div>
     </form>
 </div>
@@ -102,7 +102,7 @@
 <div class="toast-container">
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" th:classappend="${success} ? 'show' : ''">
         <div class="toast-body">
-            Blog đã được thêm thành công!
+            Thêm thành công!
         </div>
     </div>
 </div>
