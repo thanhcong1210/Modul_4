@@ -39,65 +39,6 @@ $(document).ready(function() {
         });
     });
 
-    // Tải thêm bài viết
-    let currentPage = parseInt($('#currentPage').val()) || 0;
-    let pageSize = 10;
-    let isLoading = false;
-
-    function loadBlogs(page) {
-        if (isLoading) return;
-        isLoading = true;
-
-        $.ajax({
-            url: '/blog/loadMore?page=' + page,
-            method: 'GET',
-            success: function(response) {
-                if (response.length > 0) {
-                    let existingIds = new Set();
-                    $('#blogTable tbody tr').each(function() {
-                        existingIds.add($(this).data('id'));
-                    });
-
-                    response.forEach(function(blog) {
-                        if (!existingIds.has(blog.id)) {
-                            $('#blogTable tbody').append('<tr data-id="' + blog.id + '">' +
-                                '<td>' + (page * pageSize + $('#blogTable tbody tr').length + 1) + '</td>' +
-                                '<td>' + blog.id + '</td>' +
-                                '<td>' + blog.name + '</td>' +
-                                '<td>' + blog.title + '</td>' +
-                                '<td>' + blog.author + '</td>' +
-                                '<td>' + blog.content + '</td>' +
-                                '<td>' + blog.category.name + '</td>' +
-                                '<td>' +
-                                '<div class="d-flex justify-content-between">' +
-                                '<button class="btn btn-warning" onclick="window.location.href=\'/blog/update/' + blog.id + '\'">Sửa</button>' +
-                                '<button class="btn btn-danger deleteBlogButton" data-id="' + blog.id + '">Xóa</button>' +
-                                '<button class="btn btn-info" onclick="window.location.href=\'/blog/detail/' + blog.id + '\'">Chi tiết</button>' +
-                                '</div>' +
-                                '</td>' +
-                                '</tr>');
-                        }
-                    });
-
-                    currentPage++;
-                    $('#currentPage').val(currentPage);
-                    isLoading = false;
-                } else {
-                    $('#loadMore').hide();
-                }
-            },
-            error: function() {
-                alert('Đã xảy ra lỗi khi tải dữ liệu.');
-                isLoading = false;
-            }
-        });
-    }
-
-    $('#loadMore').click(function() {
-        loadBlogs(currentPage);
-    });
-
-
     // Xóa bài viết
     $('#blogTable').on('click', '.deleteBlogButton', function() {
         var id = $(this).data('id');
