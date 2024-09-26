@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 public class BlogService implements IBlogService {
 
+
     @Autowired
     private IBlogRepository blogRepository;
 
@@ -42,7 +43,7 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Optional<Blog> findByIdOp(int id) {
+    public Optional<Blog> findByIdOptional(int id) {
         return blogRepository.findById(id);
     }
 

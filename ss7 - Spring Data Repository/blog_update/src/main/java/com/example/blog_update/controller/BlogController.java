@@ -1,7 +1,9 @@
 package com.example.blog_update.controller;
 
 import com.example.blog_update.model.Blog;
+import com.example.blog_update.model.Category;
 import com.example.blog_update.service.IBlogService;
+import com.example.blog_update.service.CategoryService;
 import com.example.blog_update.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,66 +24,76 @@ public class BlogController {
 
     @Autowired
     private IBlogService blogService;
+
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping
-    public String displayAllBlog(@RequestParam(value = "nameB", defaultValue = "") String nameB,
-                                 @RequestParam(value = "page", defaultValue = "0") int page,
-                                 Model model) {
+    @GetMapping("")
+    public String displayAllBlogs(Model model,
+                                  @RequestParam(value = "nameBlog", defaultValue = "") String nameBlog,
+                                  @RequestParam(value = "page", defaultValue = "0") int page) {
         Sort sort = Sort.by("name").ascending();
-        Page<Blog> blogPage = blogService.findAllByName(nameB, PageRequest.of(page, 5, sort));
-        model.addAttribute("blogPage", blogPage);
-        model.addAttribute("nameB", nameB);
-        model.addAttribute("page", page);
-        return "home";
+        Page<Blog> blogs = blogService.findAllByName(nameBlog, PageRequest.of(page, 10, sort));
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("nameBlog", nameBlog);
+        model.addAttribute("currentPage", page);
+        return "blog/list";
     }
 
-    @GetMapping("/viewHi/{id}")
-    public String viewIndex(@PathVariable("id") int id, Model model) {
-        Blog blog = blogService.findById(id);
-        System.out.println(blog);
-        model.addAttribute("blog", blog);
-        return "viewHi";
-    }
 
     @GetMapping("/create")
     public String viewCreate(Model model) {
         model.addAttribute("blog", new Blog());
-        model.addAttribute("category", categoryService.getAllCategories());
-        return "create";
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "blog/create";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute("blog") Blog blog,
-                         BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes) {
+    public String newBlog(@ModelAttribute("blog") Blog blog,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirect) {
         if (bindingResult.hasFieldErrors()) {
-            return "create";
+            return "blog/create";
         }
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message", "Thêm mới thành công");
+        redirect.addFlashAttribute("message", "Thêm mới thành công");
         return "redirect:/blog";
     }
 
-    @GetMapping("/edit/{id}")
-    public String viewEdit(@PathVariable("id") int id, Model model) {
-        Optional<Blog> blog = blogService.findByIdOp(id);
-        if (blog.isPresent()) {
+    @GetMapping("/update/{id}")
+    public String viewUpdate(@PathVariable int id, Model model) {
+        Optional<Blog> blog = blogService.findByIdOptional(id);
+        if(blog.isPresent()) {
             model.addAttribute("blog", blog.get());
-            model.addAttribute("category", categoryService.getAllCategories());
-            return "edit";
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "blog/update";
         } else {
-            model.addAttribute("message", "Không có blog này");
+            model.addAttribute("message", "Blog bạn xem không tồn tại");
             return "redirect:/blog";
         }
     }
 
-    @PostMapping("/edit/{id}")
-    public String edit(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
+    @PostMapping("/update/{id}")
+    public String save(@ModelAttribute Blog blog, RedirectAttributes redirect) {
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message", "Cập nhật thành công");
+        redirect.addFlashAttribute("message", "Cập nhật thành công");
         return "redirect:/blog";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String viewDetail(@PathVariable("id") int id, Model model) {
+        Optional<Blog> blog = blogService.findByIdOptional(id);
+        if (blog.isPresent()) {
+            model.addAttribute("blog", blog.get());
+            return "blog/detail";
+        }
+        model.addAttribute("message", "Blog bạn xem không tồn tại");
+        return "redirect:/blog";
+    }
+
+    @GetMapping("/search")
+    public @ResponseBody List<Blog> searchBlogs(@RequestParam(value = "nameBlog", defaultValue = "") String nameBlog) {
+        return blogService.findAllByName(nameBlog, PageRequest.of(0, 10, Sort.by("name").descending())).getContent();
     }
 
     @PostMapping("/delete/{id}")
@@ -89,11 +101,6 @@ public class BlogController {
         blogService.deleteById(id);
         redirect.addFlashAttribute("message", "Xóa thành công");
         return "redirect:/blog";
-    }
-
-    @GetMapping("/search")
-    public @ResponseBody List<Blog> searchBlogs(@RequestParam(value = "nameBlog", defaultValue = "") String nameBlog) {
-        return blogService.findAllByName(nameBlog, PageRequest.of(0, 10, Sort.by("name").descending())).getContent();
     }
 
     @GetMapping("/loadMore")

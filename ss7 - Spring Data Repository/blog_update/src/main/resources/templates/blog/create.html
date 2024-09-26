@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thêm mới</title>
+    <th:block th:replace="~{common/template::linkBootstrap}"></th:block>
+</head>
+<body>
+<nav th:replace="~{common/template::navbar}"></nav>
+<div class="container">
+    <form th:action="@{/blog/create}" th:method="post" th:object="${blog}" id="createBlogForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên Blog</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required/>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Tác giả</label>
+            <input type="text" class="form-control" id="author" th:field="*{author}" required/>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Tiêu đề</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="category">Thể loại</label>
+            <select id="category" th:field="*{category.id}" class="form-select" required>
+                <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Nội dung</label>
+            <textarea class="form-control" id="content" th:field="*{content}" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm mới</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/function.js"></script>
+</body>
+</html>
