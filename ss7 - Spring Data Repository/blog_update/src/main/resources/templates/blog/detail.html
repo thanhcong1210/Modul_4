@@ -2,24 +2,69 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Chi tiết bài Blog</title>
     <th:block th:replace="~{common/template::linkBootstrap}"></th:block>
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1055;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="~{common/template::navbar}"></nav>
-<div class="container">
-    <h2>Chi tiết bài Blog</h2>
-    <div>
-        <p><strong>Mã blog:</strong> <span th:text="${blog.id}"></span></p>
-        <p><strong>Tên Blog:</strong> <span th:text="${blog.name}"></span></p>
-        <p><strong>Tác giả:</strong> <span th:text="${blog.author}"></span></p>
-        <p><strong>Tiêu đề:</strong> <span th:text="${blog.title}"></span></p>
-        <p><strong>Thể loại:</strong> <span th:text="${blog.category.name}"></span></p>
-        <p><strong>Nội dung:</strong> <span th:text="${blog.content}"></span></p>
+<div class="container mt-5">
+    <h2 class="mb-4">Chi tiết bài Blog</h2>
+    <div class="card p-3">
+        <div class="mb-3">
+            <p><strong>Mã blog:</strong> <span th:text="${blog.id}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Tên Blog:</strong> <span th:text="${blog.name}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Tác giả:</strong> <span th:text="${blog.author}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Tiêu đề:</strong> <span th:text="${blog.title}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Thể loại:</strong> <span th:text="${blog.category.name}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Nội dung:</strong> <span th:text="${blog.content}"></span></p>
+        </div>
     </div>
-    <button class="btn btn-secondary" onclick="window.location.href='/blog'">Quay lại</button>
+    <button class="btn btn-secondary mt-4" onclick="window.location.href='/blog'">Quay lại</button>
 </div>
+
+<!-- Toast Notification -->
+<div class="toast-container">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Thông báo</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Bạn từ từ đọc phần chi tiết nhé
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/function.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Hiển thị toast nếu có thông báo từ server
+        var message = /*[[${message}]]*/ '';
+        if (message) {
+            $('.toast-body').text(message);
+            $('.toast').toast('show');
+        }
+    });
+</script>
 </body>
 </html>
