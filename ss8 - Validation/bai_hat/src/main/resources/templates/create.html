@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Thêm mới</title>
+  <th:block th:replace="~{common/template::linkBootstrap}"></th:block>
+</head>
+<body>
+<nav th:replace="~{common/template::navbar}"></nav>
+<div class="container">
+  <form method="post" th:action="@{/song/index}" th:object="${songDTO}">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" th:field="*{title}"/>
+      <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red; font-style: italic"></p>
+    </div>
+    <div class="mb-3">
+      <label for="artist" class="form-label">Artist</label>
+      <input type="text" class="form-control" id="artist" th:field="*{artist}"/>
+      <p th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}" style="color: red; font-style: italic"></p>
+    </div>
+    <div class="mb-3">
+      <label for="album" class="form-label">Album</label>
+      <input type="text" class="form-control" id="album" th:field="*{album}"/>
+      <p th:if="${#fields.hasErrors('album')}" th:errors="*{album}" style="color: red; font-style: italic"></p>
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
+  </form>
+</div>
+</body>
+</html>

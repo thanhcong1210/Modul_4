@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách bài hát</title>
+    <meta charset="UTF-8">
+    <th:block th:replace="~{common/template::linkBootstrap}">
+    </th:block>
+</head>
+<body>
+<nav th:replace="~{common/template::navbar}">
+
+</nav>
+<div class="container">
+    <p style="color: blue" th:text="${message}"></p>
+    <button class="btn btn-primary mt-4" onclick="window.location.href='/song/create'">Thêm mới</button>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="song, iterStat: ${songs}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${song.title}"></td>
+            <td th:text="${song.artist}"></td>
+            <td th:text="${song.album}"></td>
+            <td>
+                <button class="btn btn-warning">
+                    <a th:href="@{/song/update(id=${song.id})}">Chỉnh sửa
+                    </a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
