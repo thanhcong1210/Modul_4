@@ -31,16 +31,16 @@ public class UserController {
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("userDTO", new User());
-        return "index";
+        return "create";
     }
 
-    @PostMapping("/index")
+    @PostMapping("/create")
     public String createUser(@Validated @ModelAttribute("userDTO") UserDTO userDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
         new UserDTO().validate(userDTO, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "index";
+            return "create";
         }
 
         User user = new User();

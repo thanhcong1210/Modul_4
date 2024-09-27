@@ -9,7 +9,7 @@
 <nav th:replace="~{common/template::navbar}"></nav>
 <div class="container mt-5">
     <h2 class="mb-4">Thêm mới User</h2>
-    <form method="post" th:action="@{/user/index}" th:object="${userDTO}" class="needs-validation" novalidate>
+    <form method="post" th:action="@{/user/create}" th:object="${userDTO}" class="needs-validation" novalidate>
 
         <!-- First Name Field -->
         <div class="mb-3">
