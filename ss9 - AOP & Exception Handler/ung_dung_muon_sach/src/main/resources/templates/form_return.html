@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <!-- Thay thế phần head bằng đoạn mã trong layout -->
   <th:block th:replace="~{layout/library :: head}"></th:block>
-  <title>Title</title>
+  <title>Trả sách</title>
+  <!-- Thêm Bootstrap từ CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/YS0UcK2VIMkG5M/cRj8AaA2loSvdxCuTFLxTI5" crossorigin="anonymous">
 </head>
 <body>
+<!-- Thay thế phần navbar bằng đoạn mã trong layout -->
 <th:block th:replace="~{layout/library :: navbar}"></th:block>
+
+<!-- Main Content -->
 <div class="container">
   <div class="w-50 p-5 mt-5 mx-auto shadow">
+    <!-- Tiêu đề Form -->
     <h2 class="text-center mb-4">Trả sách</h2>
+    <!-- Form -->
     <form th:action="@{/borrow/return}" method="post">
+      <!-- Nhập code cần trả -->
       <div class="mb-3">
         <label for="code" class="form-label">Nhập Code cần trả</label>
-        <input type="text" class="form-control" id="code" name="code" required>
+        <input type="text" class="form-control" id="code" name="code" placeholder="Nhập mã mượn sách" required>
       </div>
+      <!-- Nút Hủy bỏ và Xác nhận -->
       <div class="text-end">
-        <a th:href="@{/books}" class="btn btn-secondary me-1">Hủy bỏ</a>
+        <a th:href="@{/books}" class="btn btn-secondary me-2">Hủy bỏ</a>
         <button type="submit" class="btn btn-primary">Xác nhận</button>
       </div>
     </form>
   </div>
-
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoMQuStX1A6QjXRXU8ip8txAqOYgRYDW8cHitxbW9BYax4U" crossorigin="anonymous"></script>
 </body>
 </html>
