@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Success</title>
+  <th:block th:replace="~{layout/library :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout/library :: navbar}"></th:block>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-success">
+        <div class="card-header bg-success text-white">
+          <h4>Success</h4>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title">Bạn đã trả sách thành công!</h5>
+          <p class="card-text">Cảm ơn bạn đã sử dụng dịch vụ của thư viện chúng tôi!</p>
+          <a href="/books" class="btn btn-primary">Trở về trang chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

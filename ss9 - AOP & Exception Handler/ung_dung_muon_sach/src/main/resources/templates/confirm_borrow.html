@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:replace="~{layout/library :: head}"></th:block>
+  <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{layout/library :: navbar}"></th:block>
+<div class="container">
+  <div class="w-50 p-5 mt-5 mx-auto shadow">
+    <h2 class="text-center mb-4">Xác thực</h2>
+    <form th:action="@{/borrow/{bookId}(bookId=${book.id})}" method="post">
+      <div class="mb-3">
+        <label for="bookRenter" class="form-label">Họ tên người mượn</label>
+        <input type="text" class="form-control" id="bookRenter" name="bookRenter" required>
+      </div>
+      <div class="text-end">
+        <a th:href="@{/books}" class="btn btn-secondary me-1">Hủy bỏ</a>
+        <button type="submit" class="btn btn-primary">Mượn sách</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>

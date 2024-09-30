@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:replace="~{layout/admin :: head}"></th:block>
+    <title>Quản lý sách</title>
+</head>
+<body>
+<th:block th:replace="~{layout/library :: navbar}"></th:block>
+<div class="container">
+    <div class="row">
+        <a th:href="@{/books/{id}/borrow (id=${book.id})}" class="col-3 mt-5 text-decoration-none" th:each="book : ${books}">
+            <div class="card" style="width: 18rem;">
+<!--                <img src="/image/book_card.jpg" class="card-img-top" alt="book_card">-->
+                <div class="card-body">
+                    <h5 class="card-title home-card-title" th:text="${book.title}"></h5>
+                    <p class="card-text home-card-text">Tác giả: <span th:text="${book.author}"></span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:if="${books.hasPrevious()}">
+                    <a class="page-link" th:href="@{/books(page=${books.number - 1})}" aria-label="Trước">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${books.hasNext()}">
+                    <a class="page-link" th:href="@{/books(page=${books.number + 1})}" aria-label="Sau">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<th:block th:replace="layout/library :: footer"></th:block>
+</body>
+</html>

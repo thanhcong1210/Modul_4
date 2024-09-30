@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <th:block th:replace="~{layout/admin :: head}"></th:block>
+  <title>Quản lý sách</title>
+</head>
+<body>
+<th:block th:replace="~{layout/library :: navbar}"></th:block>
+<div class="container">
+  <div class="mt-5" th:object="${book}">
+    <div class="card mx-auto" style="width: 36rem;">
+<!--      <img src="/image/book_card.jpg" class="card-img-top" alt="book_card">-->
+      <div class="card-body">
+        <h5 class="card-title home-card-title" th:text="${book.title}"></h5>
+        <p class="card-text home-card-text">Tác giả: <span th:text="${book.author}"></span></p>
+        <p class="card-text home-card-text">Số lượng có sẵn: <span th:text="${book.quantity}"></span> Cuốn</p>
+        <div class="text-end">
+          <a th:href="@{/borrow/{bookId}/confirm(bookId=${book.id})}" class="btn btn-primary">Mượn ngay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<th:block th:replace="layout/library :: footer"></th:block>
+</body>
+</html>
