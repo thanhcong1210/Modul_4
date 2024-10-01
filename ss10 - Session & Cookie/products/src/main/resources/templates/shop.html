@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang chính</title>
+    <th:block th:replace="~{/layout :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{/layout :: navbar}"></th:block>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" th:each="product : ${products}">
+            <div class="card h-100">
+                <a th:href="@{/{id}/detail(id=${product.id})}" class="text-decoration-none"></a>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.name}"></h5>
+                    <p class="card-text">Giá tiền: <span th:text="${product.price}"></span>$</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary w-100" th:href="@{/add/__${product.id}__(action='list')}">Thêm vào giỏ
+                        hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Thanh toán thành công</title>
+  <meta charset="UTF-8">
+  <th:block th:replace="~{/layout :: head}"></th:block>
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+    .success-icon {
+      font-size: 100px;
+      color: green;
+    }
+    .success-message {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .order-details {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="container text-center">
+  <div class="success-icon">
+    <i class="fas fa-check-circle"></i>
+  </div>
+  <div class="success-message">
+    Thanh toán thành công!
+  </div>
+  <div class="order-details">
+    <p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.</p>
+    <a href="/shop" class="btn btn-primary">Tiếp tục mua sắm</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <th:block th:replace="~{/layout :: head}"></th:block>
+  <title>Quản lý sách</title>
+</head>
+<body>
+<th:block th:replace="~{/layout :: navbar}"></th:block>
+<div class="container">
+  <div class="mt-5" th:object="${product}">
+    <div class="card mx-auto ">
+      <div class="row">
+        <div class="col-6">
+          <h5 class="card-title home-card-title mt-4">Tên sản phẩm: <span th:text="${product.name}"></span></h5>
+          <p class="card-text home-card-text">Giá bán: <span th:text="${product.price}"></span>$</p>
+          <p class="card-text home-card-text">Mô tả: <span th:text="${product.description}"></span></p>
+          <a th:href="@{/add/__${product.id}__(action='list')}" class="btn btn-primary">Thêm vào giỏ hàng</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
