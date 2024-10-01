@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Danh sách giỏ hàng</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .product-card {
-            border: 1px solid lightblue;
-            box-shadow: 5px 5px 5px pink;
+            border: 1px solid #ddd;
+            box-shadow: none;
             margin-bottom: 30px;
             border-radius: 10px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .product-image img {
@@ -26,8 +31,9 @@
         }
 
         .product-name {
-            font-family: cursive;
+            font-family: Arial, sans-serif;
             font-size: 1.2rem;
+            color: #333;
         }
 
         .product-price {
@@ -38,16 +44,16 @@
         button {
             width: 100%;
             padding: 10px;
-            border: 2px solid black;
+            border: none;
             border-radius: 5px;
-            background-color: white;
-            color: black;
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: pink;
+            background-color: #0056b3;
         }
 
         a {
