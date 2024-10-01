@@ -5,7 +5,7 @@ import com.example.products.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
@@ -13,18 +13,26 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
+
     @Override
-    public Iterable<Product> findAll() {
+    public boolean create(Product product) {
+        productRepository.save(product);
+        return true;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        productRepository.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
-    }
-
-    @Override
-    public Product findProductById(Long id) {
+    public Product findById(int id) {
         return productRepository.findById(id).orElse(null);
     }
 }

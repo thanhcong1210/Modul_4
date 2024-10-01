@@ -8,68 +8,41 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+
 
 @Controller
+@RequestMapping("/product")
 @SessionAttributes("cart")
 public class ProductController {
 
     @Autowired
     private IProductService productService;
-
     @ModelAttribute("cart")
-    public Cart setupCart() {
+    public Cart setUpCart(){
         return new Cart();
     }
 
-    @GetMapping("/shop")
-    public String showShop(Model model) {
-        model.addAttribute("products", productService.findAll());
-        return "shop";
+    @GetMapping("/list")
+    public String showListProduct(Model model){
+        model.addAttribute("listProduct",productService.findAll());
+        return "product/list";
+    }
+    @GetMapping("/add-to-cart/{id}")
+    public String addToCart(@PathVariable("id") int id, Model model,@ModelAttribute("cart")Cart cart) {
+        Product product=productService.findById(id);
+        cart.addProduct(product);
+        return "redirect:/cart/list-demo";
+    }
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") int id, Model model,@ModelAttribute("cart")Cart cart) {
+        Product product=productService.findById(id);
+        model.addAttribute("product",product);
+        return "product/detail";
+    }
+    @GetMapping("")
+    public String demo(Model model){
+        model.addAttribute("listProduct",productService.findAll());
+        return "product/demo-list";
     }
 
-    @GetMapping("/add/{id}")
-    public String addToCart(@PathVariable Long id,
-                            @ModelAttribute Cart cart,
-                            @RequestParam("action") String action) {
-        Optional<Product> productOptional = productService.findById(id);
-        if (!productOptional.isPresent()) {
-            return "error404";
-        }
-        if (action.equals("show")) {
-            cart.addProduct(productOptional.get());
-            return "redirect:/shopping-cart";
-        }
-        cart.addProduct(productOptional.get());
-        return "redirect:/shop";
-    }
-
-    @GetMapping("/change/{id}")
-    public String changeQuantity(@PathVariable Long id,
-                                 @ModelAttribute Cart cart,
-                                 @RequestParam("quantity") int quantity) {
-        Optional<Product> productOptional = productService.findById(id);
-        if (productOptional.isPresent()) {
-            cart.updateProduct(productOptional.get(), quantity);
-        }
-        return "redirect:/shopping-cart";
-    }
-
-    @GetMapping("/remove/{id}")
-    public String removeFromCart(@PathVariable Long id,
-                                 @ModelAttribute Cart cart) {
-        Optional<Product> productOptional = productService.findById(id);
-        if (productOptional.isPresent()) {
-            cart.removeProduct(productOptional.get());
-        } else {
-            return "error404";
-        }
-        return "redirect:/shopping-cart";
-    }
-
-    @GetMapping("{id}/detail")
-    public String showDetail(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("product", productService.findById(id));
-        return "detail";
-    }
 }

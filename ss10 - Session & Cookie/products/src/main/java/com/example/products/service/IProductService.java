@@ -2,12 +2,14 @@ package com.example.products.service;
 
 import com.example.products.model.Product;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface IProductService {
-    Iterable<Product> findAll();
+    boolean create(Product product);
 
-    Optional<Product> findById(Long id);
+    boolean deleteById(int id);
 
-    Product findProductById(Long id);
+    List<Product> findAll();
+
+    Product findById(int id);
 }

@@ -3,80 +3,76 @@ package com.example.products.model;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class Cart {
-    private Map<Product, Integer> products = new HashMap<Product, Integer>();
+    private Map<Product, Integer> listProduct = new HashMap<>();
 
-    public Cart() {
-    }
-
-    public Cart(Map<Product, Integer> products) {
-        this.products = products;
-    }
-
-    public Map<Product, Integer> getProducts() {
-        return products;
-    }
-
-    public void addProduct(Product product) {
-        if (!checkItemInCart(product)) {
-            products.put(product,1);
-        } else {
-            Map.Entry<Product, Integer> itemEntry = selectItemInCart(product);
-            Integer integer = itemEntry.getValue() + 1;
-            products.replace(itemEntry.getKey(), integer);
+    public void deleteItems(int key) {
+        for (Map.Entry<Product, Integer> entry : listProduct.entrySet()) {
+            if (entry.getKey().getId() == key) {
+                listProduct.remove(entry.getKey(), entry.getValue());
+                break;
+            }
         }
     }
 
-    private boolean checkItemInCart(Product product) {
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            if (entry.getKey().getId().equals(product.getId())) {
+    public boolean checkItems(Product product) {
+        for (Map.Entry<Product, Integer> entry : listProduct.entrySet()) {
+            if (entry.getKey().getId() == product.getId()) {
                 return true;
             }
         }
         return false;
     }
 
-    private Map.Entry<Product, Integer> selectItemInCart(Product product) {
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            if (entry.getKey().getId().equals(product.getId())) {
+    public Map.Entry<Product, Integer> selectItems(Product product) {
+        for (Map.Entry<Product, Integer> entry : listProduct.entrySet()) {
+            if (entry.getKey().getId() == product.getId()) {
                 return entry;
             }
         }
         return null;
     }
 
-    public Integer countProductQuantity() {
-        Integer productQuantity = 0;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            productQuantity += entry.getValue();
+    public void addProduct(Product product) {
+        if (!checkItems(product)) {
+            listProduct.put(product, 1);
+        } else {
+            Map.Entry<Product, Integer> entry = selectItems(product);
+            entry.setValue(entry.getValue() + 1);
         }
-        return productQuantity;
     }
 
-    public Integer countItemQuantity() {
-        return products.size();
+    public int countItems() {
+        return listProduct.size();
     }
 
-    public Float countTotalPayment() {
-        float totalPayment = 0;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            totalPayment += entry.getKey().getPrice() * (float) entry.getValue();
+    public int totalPayment() {
+        int totalPayment = 0;
+        for (Map.Entry<Product, Integer> entry : listProduct.entrySet()) {
+            totalPayment = totalPayment + (entry.getKey().getPrice() * entry.getValue());
         }
         return totalPayment;
     }
 
-    public void updateProduct(Product product, int quantity){
-        if (checkItemInCart(product)){
-            if (quantity <= 0){
-                products.remove(product);
-            }else {
-                products.put(product, quantity);
-            }
-        }
+
+    public Cart(Map<Product, Integer> listProduct) {
+        this.listProduct = listProduct;
     }
 
-    public void removeProduct(Product product){
-        products.remove(product);
+    public Map<Product, Integer> getListProduct() {
+        return listProduct;
     }
 
+    public void setListProduct(Map<Product, Integer> listProduct) {
+        this.listProduct = listProduct;
+    }
+
+    public Cart() {
+    }
 }

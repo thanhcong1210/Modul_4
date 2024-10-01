@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <!-- Add some basic styling for centering the icon -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    a {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .icon {
+      transition: transform 0.3s ease;
+    }
+
+    a:hover .icon {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+<div th:fragment="home">
+  <a th:href="@{/product}">
+    <iconify-icon class="icon" icon="flat-color-icons:shop" width="50" height="50"></iconify-icon>
+  </a>
+</div>
+
+<!-- Iconify Script -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+</body>
+</html>

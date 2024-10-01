@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-card {
+            border: 1px solid lightblue;
+            box-shadow: 5px 5px 5px pink;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .product-content {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-family: cursive;
+            font-size: 1.2rem;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background-color: pink;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Danh sách giỏ hàng</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Product Loop -->
+        <th:block th:each="product:${listProduct}" th:object="${product}">
+            <div class="col-md-3 col-sm-6">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img th:src="@{${product.image}}" alt="Product Image">
+                    </div>
+                    <div class="product-content text-center">
+                        <p class="product-name" th:text="${product.name}">Tên sản phẩm</p>
+                        <p class="product-price"><span th:text="${#numbers.formatCurrency(product.price)}">Giá</span></p>
+                        <div class="row">
+                            <div class="col-6">
+                                <a th:href="@{/product/detail/{id}(id=${product.id})}">
+                                    <button>Chi tiết</button>
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <a th:href="@{/product/add-to-cart/{id}(id=${product.id})}">
+                                    <button>Thêm vào giỏ hàng</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <!-- End Product Loop -->
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
