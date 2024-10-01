@@ -25,7 +25,7 @@ public class CartController {
     @GetMapping("/list-demo")
     public String cart(Model model, @SessionAttribute("cart") Cart cart) {
         model.addAttribute("cart", cart);
-        return "cart/list-demo";
+        return "cart/list-cart-demo";
     }
 
 
@@ -33,7 +33,7 @@ public class CartController {
     public String payment(@RequestParam(value = "product", required = false) int[] id, Model model, @SessionAttribute("cart") Cart cart) {
         if (id == null || id.length == 0) {
             model.addAttribute("error", "Bạn chưa chọn sản phẩm nào.");
-            return "cart/list-demo";
+            return "cart/list-cart-demo";
         }
 
         int sum = 0;
@@ -43,7 +43,7 @@ public class CartController {
         }
         model.addAttribute("cart", cart);
         model.addAttribute("result", sum);
-        return "cart/list-demo";
+        return "cart/list-cart-demo";
     }
 
 
