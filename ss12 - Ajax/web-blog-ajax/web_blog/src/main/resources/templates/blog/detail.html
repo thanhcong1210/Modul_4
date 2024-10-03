@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <th:block th:replace="~{layout :: head}"></th:block>
+  <title th:text="${blog.title}"></title>
+</head>
+<body class="bg-warning-subtle">
+<th:block th:replace="~{layout :: navbar}"></th:block>
+<div class="container mt-5" th:object="${blog}">
+  <h2 class="text-center mb-4" th:text="${blog.title}"></h2>
+  <p style="text-indent: 2em" th:text="${blog.content}"></p>
+  <h6 th:text="${blog.author}" class="text-end me-5 mt-3"></h6>
+</div>
+</body>
+</html>
