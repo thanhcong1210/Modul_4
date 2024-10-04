@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Chỉnh Sửa Blog</title>
+  <th:block th:replace="~{layout :: head}"></th:block>
+</head>
+<body class="bg-warning-subtle">
+<th:block th:replace="~{layout :: navbar}"></th:block>
+<div class="shadow w-75 mx-auto mt-5 p-5 rounded-3 bg-light-subtle">
+  <form action="/blogs/update" method="post" th:object="${blog}">
+    <input type="hidden" th:value="${blog.id}" th:field="*{id}">
+    <div class="mb-3">
+      <label for="author" class="form-label">Tác giả:</label>
+      <input type="text" class="form-control" id="author" th:value="${blog.author}" th:field="*{author}">
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">Tiêu đề:</label>
+      <input type="text" class="form-control" id="title" th:value="${blog.title}" th:field="*{title}">
+    </div>
+    <div class="mb-3">
+      <label for="categoryId" class="form-label">Danh mục</label>
+      <select id="categoryId" class="form-select" th:field="*{category.id}">
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"
+                th:selected="${category.id == blog.category.id}"></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Nội dung:</label>
+      <textarea class="form-control" id="content" rows="5" th:value="${blog.content}" th:field="*{content}"></textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+      <a href="/blogs/list" class="btn btn-danger me-3">Hủy bỏ</a>
+      <button type="submit" class="btn btn-primary">Xác nhận</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
